@@ -45,6 +45,7 @@ jobs:
     outputs:
       desktop: ${{ steps.matrix.outputs.desktop }}
       android: ${{ steps.matrix.outputs.android }}
+      ios: ${{ steps.matrix.outputs.ios }}
       version: ${{ steps.matrix.outputs.version }}
     steps:
       - uses: actions/checkout@v7
@@ -57,7 +58,7 @@ jobs:
           from pathlib import Path
           targets = json.loads(Path('.github/targets.json').read_text())
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
-              for kind in ('desktop', 'android'):
+              for kind in ('desktop', 'android', 'ios'):
                   print(f'{kind}=' + json.dumps({'include': targets[kind]}, separators=(',', ':')), file=output)
               print('version=' + Path('VERSION').read_text().strip(), file=output)
 
@@ -174,9 +175,38 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+  ios:
+    name: Cross-build ${{ matrix.rid }} runtime
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.ios) }}
+    runs-on: macos-15
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build runtime without iOS IDL tools
+        env:
+          PACKAGE_RID: ${{ matrix.rid }}
+        run: bash scripts/build-ios.sh "$PACKAGE_RID"
+      - name: Verify iOS Mach-O architecture
+        env:
+          PACKAGE_RID: ${{ matrix.rid }}
+        run: python3 scripts/verify-package.py --stage "build/ios/$PACKAGE_RID/binding/package" --runtime-rid "$PACKAGE_RID"
+      - name: Upload iOS runtime payload
+        uses: actions/upload-artifact@v7
+        with:
+          name: native-${{ matrix.rid }}
+          path: build/ios/${{ matrix.rid }}/binding/package/
+          if-no-files-found: error
+          retention-days: 1
+
   package:
     name: Assemble one multi-platform NuGet
-    needs: [prepare, desktop, android]
+    needs: [prepare, desktop, android, ios]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     defaults:

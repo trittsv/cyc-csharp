@@ -34,6 +34,7 @@ The authoritative platform matrix is [targets.json](../.github/targets.json):
 | Windows | `win-x64`, `win-arm64` | Both architectures |
 | macOS | `osx-x64`, `osx-arm64` | Both architectures |
 | Android | `android-arm64`, `android-x64`, `android-arm`, `android-x86` | None |
+| iOS | `ios-arm64`, `iossimulator-arm64`, `iossimulator-x64` | None |
 
 Linux uses Ubuntu 24.04 runners; native dependency compatibility follows that
 build environment. Alpine/musl is not in this matrix. Windows uses Windows 2025
@@ -50,9 +51,9 @@ filenames/SONAMEs for Android packaging and 16 KB ELF segment alignment.
 2. On all six desktop hosts, build the pinned Cyclone DDS runtime, binding and
    C# IDL backend. Run an early native IDL compiler smoke test and CTest (managed/native runtime tests, IDL fixtures and
    separate-process examples), then stage only native runtime/tool payloads.
-3. For each Android ABI, build Cyclone DDS and the common runtime bridge with
-   host IDL tools and managed examples/tests disabled. Android never builds or
-   ships an `idlc` executable or C# backend.
+3. For each Android ABI and iOS device/simulator RID, build Cyclone DDS and the
+   common runtime bridge with host IDL tools and managed examples/tests disabled.
+   Mobile targets never build or ship an `idlc` executable or C# backend.
 4. Verify each payload's actual ELF/PE/Mach-O CPU architecture. For Android,
    also check SONAMEs, native dependencies and 16 KB page alignment.
 5. Download all native payloads into one staging directory. Require every RID
@@ -72,8 +73,8 @@ contains the same single package verified on all desktop hosts; it is not pushed
 to NuGet.org and needs no publishing credentials. Fork pull requests use the
 ordinary `pull_request` event with read-only repository permissions.
 
-Android currently has cross-build and native binary checks, not emulator/device
-DDS integration tests. Desktop test success must come from the actual GitHub
+Android and iOS currently have cross-build and native binary checks, not
+emulator/device DDS integration tests. Desktop test success must come from the actual GitHub
 runs; local macOS validation alone does not establish Windows/Linux support.
 
 ## Local Android cross-build
@@ -87,10 +88,20 @@ python3 scripts/verify-package.py \
   --stage build/android/android-arm64/binding/package --runtime-rid android-arm64
 ```
 
-The script fetches/verifies the pinned Cyclone source through
+The Android script fetches/verifies the pinned Cyclone source through
 `bootstrap-native.sh --source-only`. Build directories are separate per ABI.
 It stages runtime-only files under
 `build/android/<rid>/binding/package/runtimes/<rid>/native`.
+
+On macOS with Xcode installed, cross-build iOS device and simulator assets:
+
+```sh
+bash scripts/build-ios.sh ios-arm64
+bash scripts/build-ios.sh iossimulator-arm64
+bash scripts/build-ios.sh iossimulator-x64
+python3 scripts/verify-package.py \
+   --stage build/ios/ios-arm64/binding/package --runtime-rid ios-arm64
+```
 
 Combine those runtime directories with the desktop `build/package` directories,
 then use `dotnet pack ... -p:NativePackageDirectory=/absolute/path/to/stage` as

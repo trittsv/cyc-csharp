@@ -274,7 +274,7 @@ dotnet pack src/ddscsharp/Org.Eclipse.CycloneDDS.csproj -c Release -o artifacts/
 
 A pack requires both native runtime and compiler-tool payloads. Runtime selection
 uses .NET's target RID; compiler selection uses the build host, independently.
-CI builds all configured desktop and Android payloads in parallel, combines
+CI builds all configured desktop, Android and iOS payloads in parallel, combines
 them into one package, and verifies that package on every desktop host before
 archiving it. See [CI and platform builds](docs/CI.md) for the matrix and gates. Packing does not publish
 to NuGet or reserve an ID.

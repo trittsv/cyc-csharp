@@ -41,8 +41,8 @@ errors fail the build and cannot leave partially generated sources.
 Tools run on the **build host**, independently of the application's target RID.
 A package can contain multiple `tools/<host-rid>/native` payloads. A host missing
 from the installed package produces a clear build error. Locally produced
-packages contain only the hosts explicitly staged when packing. CI builds desktop host tools and Android runtime-only payloads, then combines
-them into one multi-platform package. Android has no host compiler payload.
+packages contain only the hosts explicitly staged when packing. CI builds desktop host tools and Android/iOS runtime-only payloads, then combines
+them into one multi-platform package. Mobile targets have no host compiler payload.
 The same package includes native libraries under `runtimes/<target-rid>/native`
 for the application's execution platform. Publish and runtime RID selection use the usual .NET rules.
 The compiler and internal MSBuild task are not copied into application output.

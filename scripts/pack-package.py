@@ -64,13 +64,15 @@ def main():
     rid = args.rid or checked(['dotnet', 'msbuild', ROOT / 'src/ddscsharp/Org.Eclipse.CycloneDDS.csproj',
                               '-getProperty:NETCoreSdkRuntimeIdentifier', '-nologo']).strip()
     stage_root = build / 'package'
-    if rid.startswith('android-') != args.runtime_only:
-        raise RuntimeError('Android requires --runtime-only; desktop targets must also stage host IDL tools.')
+    runtime_only_rid = rid.startswith(('android-', 'ios-', 'iossimulator-'))
+    if runtime_only_rid != args.runtime_only:
+        raise RuntimeError('Android/iOS targets require --runtime-only; desktop targets must also stage host IDL tools.')
     if args.runtime_only and not args.stage_only:
-        raise RuntimeError('Android payloads use --runtime-only --stage-only; assemble them with desktop tools before packing.')
+        raise RuntimeError('Android/iOS payloads use --runtime-only --stage-only; assemble them with desktop tools before packing.')
     native = build / 'lib'
     if os.name == 'nt' and (native / 'Release').is_dir():
         native = native / 'Release'
+    macho_rid = rid.startswith(('osx-', 'ios-', 'iossimulator-'))
     crt_files = msvc_runtime_files(rid) if rid.startswith('win-') else []
     if not args.runtime_only:
         stage = stage_root / 'tools' / rid / 'native'
@@ -109,7 +111,7 @@ def main():
         shutil.rmtree(runtime)
     runtime.mkdir(parents=True)
     runtime_patterns = ('cycloneddscsharp.dll', 'ddsc.dll') if rid.startswith('win-') else (
-        ('libcycloneddscsharp*.dylib', 'libddsc*.dylib') if rid.startswith('osx-')
+        ('libcycloneddscsharp*.dylib', 'libddsc*.dylib') if macho_rid
         else ('libcycloneddscsharp.so*', 'libddsc.so*'))
     for runtime_pattern in runtime_patterns:
         matches = list(native.glob(runtime_pattern))
@@ -119,7 +121,7 @@ def main():
             shutil.copy2(source, runtime / source.name, follow_symlinks=True)
     for source in crt_files:
         shutil.copy2(source, runtime / source.name)
-    if rid.startswith('osx-'):
+    if macho_rid:
         for path in runtime.iterdir():
             load = checked(['otool', '-l', path])
             for rpath in re.findall(r'cmd LC_RPATH\s+cmdsize \d+\s+path (.*?) \(offset', load):
