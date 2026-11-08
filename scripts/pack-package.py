@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import struct
 import subprocess
 import sys
 
@@ -33,7 +34,20 @@ def msvc_runtime_files(rid):
     candidates = sorted((Path(redist) / arch).glob('Microsoft.VC*.CRT/vcruntime140.dll'))
     if not candidates:
         raise RuntimeError(f'No shared MSVC redistributable CRT found for {rid} in {redist}')
-    return sorted(candidates[-1].parent.glob('*.dll'))
+    expected = {'x64': 0x8664, 'arm64': 0xaa64}[arch]
+    for candidate in reversed(candidates):
+        matching = []
+        for path in sorted(candidate.parent.glob('*.dll')):
+            data = path.read_bytes()
+            pe = struct.unpack_from('<I', data, 0x3c)[0]
+            if data[:2] != b'MZ' or data[pe:pe + 4] != b'PE\0\0':
+                raise RuntimeError(f'Invalid MSVC redistributable DLL: {path}')
+            machine = struct.unpack_from('<H', data, pe + 4)[0]
+            if machine == expected or arch == 'arm64' and machine == 0xa64e:
+                matching.append(path)
+        if any(path.name.casefold() == 'vcruntime140.dll' for path in matching):
+            return matching
+    raise RuntimeError(f'No {arch} MSVC redistributable CRT found in {redist}')
 
 
 def main():
