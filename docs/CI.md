@@ -6,6 +6,13 @@
 that temporary coverage is no longer needed. A new run cancels an older run for
 the same branch or pull request.
 
+The repository's [global.json](../global.json) selects the latest installed stable
+.NET 9.0 SDK feature band. Installing SDK 9 alone does not select it when a runner
+also has SDK 10. The internal MSBuild task targets .NET 9 and references the
+selected SDK's MSBuild assemblies, so building it with SDK 10 would mix
+incompatible framework references. This repository SDK selection does not
+change the library/package version.
+
 The authoritative platform matrix is [targets.json](../.github/targets.json):
 
 | Platform | Runtime RIDs | Host IDL tools |

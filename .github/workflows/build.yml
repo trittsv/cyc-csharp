@@ -70,6 +70,8 @@ jobs:
         with:
           dotnet-version: 9.0.x
           architecture: ${{ matrix.arch }}
+      - name: Show repository-selected .NET SDK
+        run: dotnet --version
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
@@ -156,6 +158,8 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 9.0.x
+      - name: Show repository-selected .NET SDK
+        run: dotnet --version
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
@@ -198,6 +202,8 @@ jobs:
         with:
           dotnet-version: 9.0.x
           architecture: ${{ matrix.arch }}
+      - name: Show repository-selected .NET SDK
+        run: dotnet --version
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
