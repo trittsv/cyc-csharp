@@ -22,3 +22,9 @@ New implementation files use the same license-header wording and SPDX expression
 with attribution to the Cyclone DDS C# contributors. This repository is an initial
 implementation and does not assert Eclipse project membership, endorsement, or
 OMG conformance certification.
+
+Windows binary packages also contain the selected MSVC toolchain's shared
+release CRT DLLs, copied from its architecture-specific redistributable folder.
+Those Microsoft binaries are governed by the applicable Microsoft Visual Studio
+license terms, rather than this project's EPL/BSD license. See Microsoft's
+[Visual C++ redistribution documentation](https://learn.microsoft.com/en-us/cpp/windows/redistributing-visual-cpp-files).

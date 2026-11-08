@@ -67,11 +67,32 @@ def verify_binary(path, data, rid):
             raise ValueError(f'{path}: expected a Windows PE binary')
         machine = struct.unpack_from('<H', data, pe + 4)[0]
         expected = {'x64': 0x8664, 'arm64': 0xaa64}[arch]
-    elif rid.startswith('osx-'):
+        # MSVC's ARM64 redistributables may be ARM64X hybrid DLLs.
+        if arch == 'arm64' and machine == 0xa64e:
+            machine = expected
+    elif rid.startswith(('osx-', 'ios-', 'iossimulator-')):
         if data[:4] != b'\xcf\xfa\xed\xfe':
             raise ValueError(f'{path}: expected a 64-bit Mach-O binary')
         machine = struct.unpack_from('<I', data, 4)[0]
         expected = {'x64': 0x01000007, 'arm64': 0x0100000c}[arch]
+        expected_platform = 1 if rid.startswith('osx-') else 2 if rid.startswith('ios-') else 7
+        command_count = struct.unpack_from('<I', data, 16)[0]
+        offset = 32
+        platform = None
+        for _ in range(command_count):
+            command, size = struct.unpack_from('<II', data, offset)
+            if command == 0x32:  # LC_BUILD_VERSION
+                platform = struct.unpack_from('<I', data, offset + 8)[0]
+                break
+            if command == 0x24:  # LC_VERSION_MIN_MACOSX
+                platform = 1
+                break
+            if command == 0x25:  # LC_VERSION_MIN_IPHONEOS
+                platform = 2
+                break
+            offset += size
+        if platform != expected_platform:
+            raise ValueError(f'{path}: Mach-O platform {platform} does not match {rid} ({expected_platform})')
     else:
         machine, segments, dependencies, sonames = elf(data)
         expected = {'x86': 3, 'arm': 40, 'x64': 62, 'arm64': 183}[arch]
@@ -96,8 +117,8 @@ def verify(files, read, runtime_rids, tool_rids, version, package):
                          f'expected runtimes={sorted(runtime_rids)}, tools={sorted(tool_rids)}')
     major = version.split('.')[0]
     for rid in sorted(runtime_rids):
-        required = ('ddsc.dll', 'cycloneddscsharp.dll') if rid.startswith('win-') else (
-            (f'libddsc.{major}.dylib', 'libcycloneddscsharp.dylib') if rid.startswith('osx-') else (
+        required = ('ddsc.dll', 'cycloneddscsharp.dll', 'vcruntime140.dll') if rid.startswith('win-') else (
+            (f'libddsc.{major}.dylib', 'libcycloneddscsharp.dylib') if rid.startswith(('osx-', 'ios-', 'iossimulator-')) else (
                 ('libddsc.so', 'libcycloneddscsharp.so') if rid.startswith('android-') else (f'libddsc.so.{major}', 'libcycloneddscsharp.so')))
         for name in required:
             path = f'runtimes/{rid}/native/{name}'
@@ -106,7 +127,7 @@ def verify(files, read, runtime_rids, tool_rids, version, package):
         for path in sorted(p for p in files if p.startswith(f'runtimes/{rid}/')):
             verify_binary(path, read(path), rid)
     for rid in sorted(tool_rids):
-        required = ('idlc.exe', 'cycloneddsidlcsharp.dll', 'cycloneddsidl.dll', 'ddsc.dll') if rid.startswith('win-') else (
+        required = ('idlc.exe', 'cycloneddsidlcsharp.dll', 'cycloneddsidl.dll', 'ddsc.dll', 'vcruntime140.dll') if rid.startswith('win-') else (
             ('idlc', 'libcycloneddsidlcsharp.dylib', f'libcycloneddsidl.{major}.dylib', f'libddsc.{major}.dylib') if rid.startswith('osx-') else (
                 'idlc', 'libcycloneddsidlcsharp.so', f'libcycloneddsidl.so.{major}', f'libddsc.so.{major}'))
         for name in required:
@@ -146,7 +167,7 @@ def main():
         tool_rids = {t['rid'] for t in config['desktop']}
     else:
         runtime_rids = set(args.runtime_rid)
-        tool_rids = {rid for rid in runtime_rids if not rid.startswith('android-')}
+        tool_rids = {rid for rid in runtime_rids if not rid.startswith(('android-', 'ios-', 'iossimulator-'))}
     version = (ROOT / 'VERSION').read_text().strip()
     if args.package:
         with ZipFile(args.package) as archive:

@@ -28,6 +28,14 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: '1'
   DOTNET_NOLOGO: '1'
   CMAKE_GENERATOR: Ninja
+  # Cross-process DDS tests must not depend on the runner's multicast network.
+  CYCLONEDDS_URI: >-
+    <CycloneDDS><Domain Id="any"><General>
+    <Interfaces><NetworkInterface address="127.0.0.1"/></Interfaces>
+    <AllowMulticast>false</AllowMulticast></General><Discovery>
+    <ParticipantIndex>auto</ParticipantIndex><MaxAutoParticipantIndex>32</MaxAutoParticipantIndex>
+    <Peers><Peer Address="127.0.0.1"/></Peers>
+    </Discovery></Domain></CycloneDDS>
   ANDROID_NDK_VERSION: 27.2.12479018
 
 jobs:
@@ -37,6 +45,7 @@ jobs:
     outputs:
       desktop: ${{ steps.matrix.outputs.desktop }}
       android: ${{ steps.matrix.outputs.android }}
+      ios: ${{ steps.matrix.outputs.ios }}
       version: ${{ steps.matrix.outputs.version }}
     steps:
       - uses: actions/checkout@v7
@@ -49,7 +58,7 @@ jobs:
           from pathlib import Path
           targets = json.loads(Path('.github/targets.json').read_text())
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
-              for kind in ('desktop', 'android'):
+              for kind in ('desktop', 'android', 'ios'):
                   print(f'{kind}=' + json.dumps({'include': targets[kind]}, separators=(',', ':')), file=output)
               print('version=' + Path('VERSION').read_text().strip(), file=output)
 
@@ -70,6 +79,8 @@ jobs:
         with:
           dotnet-version: 9.0.x
           architecture: ${{ matrix.arch }}
+      - name: Show repository-selected .NET SDK
+        run: dotnet --version
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
@@ -80,12 +91,33 @@ jobs:
           arch: ${{ matrix.arch }}
       - name: Build pinned Cyclone DDS
         run: bash scripts/bootstrap-native.sh
+      - name: Smoke test native IDL compiler
+        shell: python
+        run: |
+          import os
+          import subprocess
+          from pathlib import Path
+          compiler = Path('build/_deps/cyclonedds-install/bin') / ('idlc.exe' if os.name == 'nt' else 'idlc')
+          output = Path('build/native-idlc-smoke').resolve()
+          output.mkdir(parents=True, exist_ok=True)
+          subprocess.run([str(compiler), '-x', 'final', '-o', str(output), 'examples/HelloWorld/HelloWorld.idl'], check=True)
+          assert all((output / ('HelloWorld' + suffix)).is_file() for suffix in ('.c', '.h'))
       - name: Configure C# binding
         run: cmake -S . -B build -DCMAKE_PREFIX_PATH="$PWD/build/_deps/cyclonedds-install" -DCMAKE_BUILD_TYPE=Release
       - name: Build binding, tests and examples
         run: cmake --build build --config Release --parallel
       - name: Run runtime, IDL and example tests
         run: ctest --test-dir build -C Release --output-on-failure
+      - name: Save test diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: diagnostics-${{ matrix.rid }}
+          path: |
+            build/Testing/Temporary/*.log
+            build/example-tests/**/*.log
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Stage native runtime and host tools
         env:
           PACKAGE_RID: ${{ matrix.rid }}
@@ -116,10 +148,17 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
-      - name: Install pinned Android NDK
-        run: |
-          sdkmanager "ndk;$ANDROID_NDK_VERSION"
-          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$ANDROID_NDK_VERSION" >> "$GITHUB_ENV"
+      - name: Set up Java for Android SDK tools
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up Android SDK and install pinned NDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: ndk;${{ env.ANDROID_NDK_VERSION }}
+      - name: Select pinned Android NDK
+        run: echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$ANDROID_NDK_VERSION" >> "$GITHUB_ENV"
       - name: Build runtime without Android IDL tools
         env:
           PACKAGE_RID: ${{ matrix.rid }}
@@ -136,9 +175,38 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+  ios:
+    name: Cross-build ${{ matrix.rid }} runtime
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.ios) }}
+    runs-on: macos-15
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build runtime without iOS IDL tools
+        env:
+          PACKAGE_RID: ${{ matrix.rid }}
+        run: bash scripts/build-ios.sh "$PACKAGE_RID"
+      - name: Verify iOS Mach-O architecture
+        env:
+          PACKAGE_RID: ${{ matrix.rid }}
+        run: python3 scripts/verify-package.py --stage "build/ios/$PACKAGE_RID/binding/package" --runtime-rid "$PACKAGE_RID"
+      - name: Upload iOS runtime payload
+        uses: actions/upload-artifact@v7
+        with:
+          name: native-${{ matrix.rid }}
+          path: build/ios/${{ matrix.rid }}/binding/package/
+          if-no-files-found: error
+          retention-days: 1
+
   package:
     name: Assemble one multi-platform NuGet
-    needs: [prepare, desktop, android]
+    needs: [prepare, desktop, android, ios]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     defaults:
@@ -149,6 +217,8 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 9.0.x
+      - name: Show repository-selected .NET SDK
+        run: dotnet --version
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
@@ -191,6 +261,8 @@ jobs:
         with:
           dotnet-version: 9.0.x
           architecture: ${{ matrix.arch }}
+      - name: Show repository-selected .NET SDK
+        run: dotnet --version
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'

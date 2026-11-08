@@ -39,8 +39,8 @@ if [[ $# -gt 0 ]]; then
 fi
 cmake -S "$source_dir" -B "$binary_dir" \
   -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$install_dir" \
-  '-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug>' \
-  -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DDSPERF=OFF \
+  '-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug>DLL' \
+  -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DDSPERF=OFF \
   -DENABLE_SECURITY=OFF -DENABLE_SSL=OFF
 cmake --build "$binary_dir" --parallel
 cmake --install "$binary_dir"

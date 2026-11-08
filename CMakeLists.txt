@@ -9,9 +9,14 @@
 # SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
 cmake_minimum_required(VERSION 3.20)
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" CYCLONEDDS_CSHARP_VERSION LIMIT_COUNT 1)
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+# Cyclone/idlc pass CRT objects across DLL boundaries; all modules share the CRT.
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 project(CycloneDDSCSharp VERSION "${CYCLONEDDS_CSHARP_VERSION}" LANGUAGES C)
 find_package(CycloneDDS 11.0.1 REQUIRED)
+get_target_property(ddsc_library_type CycloneDDS::ddsc TYPE)
+if(ddsc_library_type STREQUAL "STATIC_LIBRARY")
+  message(FATAL_ERROR "Cyclone DDS must be built with BUILD_SHARED_LIBS=ON.")
+endif()
 include(CTest)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -70,6 +75,7 @@ if(BUILD_TESTING)
 cyclonedds_generate_csharp(TARGET test_types FILE "${CMAKE_CURRENT_SOURCE_DIR}/src/ddscsharp/tests/idl/Types.idl")
 # Native C interoperability is an independent peer, not part of C# type generation.
 add_custom_command(OUTPUT "${test_types_OUTPUT_DIR}/Types.c" "${test_types_OUTPUT_DIR}/Types.h"
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${test_types_OUTPUT_DIR}"
   COMMAND CycloneDDS::idlc -x final -o "${test_types_OUTPUT_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/src/ddscsharp/tests/idl/Types.idl"
   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/ddscsharp/tests/idl/Types.idl" VERBATIM)
 add_executable(c_interop src/ddscsharp/tests/interop.c "${test_types_OUTPUT_DIR}/Types.c")
@@ -77,7 +83,7 @@ target_include_directories(c_interop PRIVATE "${test_types_OUTPUT_DIR}")
 target_link_libraries(c_interop PRIVATE CycloneDDS::ddsc)
 add_custom_target(managed_tests ALL
   COMMAND "${DOTNET_EXECUTABLE}" build "${CMAKE_CURRENT_SOURCE_DIR}/src/ddscsharp/tests/Org.Eclipse.CycloneDDS.Tests.csproj"
-    --configuration Release --nologo "-p:DdsGeneratedDirectory=${test_types_OUTPUT_DIR}"
+    --configuration Release --nologo -p:Platform=AnyCPU "-p:DdsGeneratedDirectory=${test_types_OUTPUT_DIR}"
   DEPENDS test_types cycloneddscsharp c_interop VERBATIM)
 add_test(NAME ddscsharp COMMAND ${CMAKE_COMMAND} -E env
   "CYCLONEDDS_CSHARP_NATIVE=$<TARGET_FILE_DIR:cycloneddscsharp>"

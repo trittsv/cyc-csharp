@@ -40,7 +40,11 @@ def checked(command):
 
 def compiler_paths(dotnet):
     sdk_list = checked([dotnet, "--list-sdks"]).stdout.splitlines()
-    version, parent = re.match(r"(\S+) \[(.*)\]", sdk_list[-1]).groups()
+    selected_version = checked([dotnet, "--version"]).stdout.strip()
+    selected_sdk = next((line for line in sdk_list if line.split()[0] == selected_version), None)
+    if selected_sdk is None:
+        raise RuntimeError(f"Selected .NET SDK {selected_version} was not found in --list-sdks.")
+    version, parent = re.match(r"(\S+) \[(.*)\]", selected_sdk).groups()
     sdk_root = Path(parent)
     csc = sdk_root / version / "Roslyn/bincore/csc.dll"
     packs = sdk_root.parent / "packs/Microsoft.NETCore.App.Ref"

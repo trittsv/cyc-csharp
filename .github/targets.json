@@ -12,5 +12,10 @@
     { "rid": "android-x64" },
     { "rid": "android-arm" },
     { "rid": "android-x86" }
+  ],
+  "ios": [
+    { "rid": "ios-arm64" },
+    { "rid": "iossimulator-arm64" },
+    { "rid": "iossimulator-x64" }
   ]
 }

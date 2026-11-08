@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import struct
 import subprocess
 import sys
 
@@ -22,6 +23,31 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def checked(command):
     return subprocess.run([str(x) for x in command], check=True, text=True, capture_output=True).stdout
+
+
+def msvc_runtime_files(rid):
+    """Use the selected MSVC toolchain's redistributable shared release CRT."""
+    redist = os.environ.get('VCToolsRedistDir')
+    if not redist:
+        raise RuntimeError('VCToolsRedistDir is missing; stage Windows payloads from the matching MSVC developer environment.')
+    arch = rid.rsplit('-', 1)[1]
+    candidates = sorted((Path(redist) / arch).glob('Microsoft.VC*.CRT/vcruntime140.dll'))
+    if not candidates:
+        raise RuntimeError(f'No shared MSVC redistributable CRT found for {rid} in {redist}')
+    expected = {'x64': 0x8664, 'arm64': 0xaa64}[arch]
+    for candidate in reversed(candidates):
+        matching = []
+        for path in sorted(candidate.parent.glob('*.dll')):
+            data = path.read_bytes()
+            pe = struct.unpack_from('<I', data, 0x3c)[0]
+            if data[:2] != b'MZ' or data[pe:pe + 4] != b'PE\0\0':
+                raise RuntimeError(f'Invalid MSVC redistributable DLL: {path}')
+            machine = struct.unpack_from('<H', data, pe + 4)[0]
+            if machine == expected or arch == 'arm64' and machine == 0xa64e:
+                matching.append(path)
+        if any(path.name.casefold() == 'vcruntime140.dll' for path in matching):
+            return matching
+    raise RuntimeError(f'No {arch} MSVC redistributable CRT found in {redist}')
 
 
 def main():
@@ -38,13 +64,16 @@ def main():
     rid = args.rid or checked(['dotnet', 'msbuild', ROOT / 'src/ddscsharp/Org.Eclipse.CycloneDDS.csproj',
                               '-getProperty:NETCoreSdkRuntimeIdentifier', '-nologo']).strip()
     stage_root = build / 'package'
-    if rid.startswith('android-') != args.runtime_only:
-        raise RuntimeError('Android requires --runtime-only; desktop targets must also stage host IDL tools.')
+    runtime_only_rid = rid.startswith(('android-', 'ios-', 'iossimulator-'))
+    if runtime_only_rid != args.runtime_only:
+        raise RuntimeError('Android/iOS targets require --runtime-only; desktop targets must also stage host IDL tools.')
     if args.runtime_only and not args.stage_only:
-        raise RuntimeError('Android payloads use --runtime-only --stage-only; assemble them with desktop tools before packing.')
+        raise RuntimeError('Android/iOS payloads use --runtime-only --stage-only; assemble them with desktop tools before packing.')
     native = build / 'lib'
     if os.name == 'nt' and (native / 'Release').is_dir():
         native = native / 'Release'
+    macho_rid = rid.startswith(('osx-', 'ios-', 'iossimulator-'))
+    crt_files = msvc_runtime_files(rid) if rid.startswith('win-') else []
     if not args.runtime_only:
         stage = stage_root / 'tools' / rid / 'native'
         if stage.exists():
@@ -61,6 +90,8 @@ def main():
         for source in libraries.glob(pattern):
             if 'cycloneddsidl' in source.name or re.match(r'(lib)?ddsc[.-]', source.name):
                 shutil.copy2(source, stage / source.name, follow_symlinks=True)
+        for source in crt_files:
+            shutil.copy2(source, stage / source.name)
         if sys.platform == 'darwin':
             for path in stage.iterdir():
                 load = checked(['otool', '-l', path])
@@ -80,7 +111,7 @@ def main():
         shutil.rmtree(runtime)
     runtime.mkdir(parents=True)
     runtime_patterns = ('cycloneddscsharp.dll', 'ddsc.dll') if rid.startswith('win-') else (
-        ('libcycloneddscsharp*.dylib', 'libddsc*.dylib') if rid.startswith('osx-')
+        ('libcycloneddscsharp*.dylib', 'libddsc*.dylib') if macho_rid
         else ('libcycloneddscsharp.so*', 'libddsc.so*'))
     for runtime_pattern in runtime_patterns:
         matches = list(native.glob(runtime_pattern))
@@ -88,7 +119,9 @@ def main():
             raise RuntimeError(f'Missing runtime files matching {runtime_pattern} in {native}; build the native bridge first.')
         for source in matches:
             shutil.copy2(source, runtime / source.name, follow_symlinks=True)
-    if rid.startswith('osx-'):
+    for source in crt_files:
+        shutil.copy2(source, runtime / source.name)
+    if macho_rid:
         for path in runtime.iterdir():
             load = checked(['otool', '-l', path])
             for rpath in re.findall(r'cmd LC_RPATH\s+cmdsize \d+\s+path (.*?) \(offset', load):

@@ -267,7 +267,8 @@ static int emit_struct(generator *g, const idl_struct_t *s) {
     IDL_FOREACH(m, s->members) {
       const idl_declarator_t *d;
       IDL_FOREACH(d, m->declarators) {
-        if (!first) fputs(", ", f); first = false;
+        if (!first) fputs(", ", f);
+        first = false;
         type_name(f, m->type_spec, d); if (m->optional.value) fputc('?', f);
         fprintf(f, " @%s", member_name(d));
       }
@@ -374,14 +375,16 @@ static void branch_test(FILE *f, const idl_union_t *u, const idl_case_t *branch,
     const idl_case_t *other;
     IDL_FOREACH(other, u->cases) if (other != branch) {
       IDL_FOREACH(label, other->labels) if (!idl_is_default_case(label)) {
-        if (!first) fputs(" && ", f); first = false;
+        if (!first) fputs(" && ", f);
+        first = false;
         fprintf(f, "%s != ", discriminator); disc_value(f, u, idl_case_label_intvalue(label));
       }
     }
     if (first) fputs("true", f);
   } else {
     IDL_FOREACH(label, branch->labels) {
-      if (!first) fputs(" || ", f); first = false;
+      if (!first) fputs(" || ", f);
+      first = false;
       fprintf(f, "%s == ", discriminator); disc_value(f, u, idl_case_label_intvalue(label));
     }
     if (first) fputs("false", f);
@@ -534,7 +537,8 @@ static void layout(FILE *f, const void *type, const idl_declarator_t *decl) {
     IDL_FOREACH(m, ((const idl_struct_t *)s.base)->members) {
       const idl_declarator_t *d;
       IDL_FOREACH(d, m->declarators) {
-        if (comma) fputs(", ", f); comma = true;
+        if (comma) fputs(", ", f);
+        comma = true;
         if (m->optional.value) fprintf(f, "%s.Pointer", ns);
         else layout(f, m->type_spec, d);
       }

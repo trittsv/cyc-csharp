@@ -11,6 +11,11 @@
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #else
+/* windows.h must not introduce Winsock 1 before Cyclone's Winsock 2 headers. */
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <winsock2.h>
 #include <windows.h>
 #endif
 #include <dds/dds.h>

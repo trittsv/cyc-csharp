@@ -13,7 +13,7 @@ function(cyclonedds_csharp_example name types)
   string(TOLOWER "${name}" target_suffix)
   add_custom_target(managed_${target_suffix} ALL
     COMMAND "${DOTNET_EXECUTABLE}" build "${CMAKE_CURRENT_SOURCE_DIR}/${name}.csproj"
-      --configuration Release --nologo "-p:DdsGeneratedDirectory=${${types}_OUTPUT_DIR}"
+      --configuration Release --nologo -p:Platform=AnyCPU "-p:DdsGeneratedDirectory=${${types}_OUTPUT_DIR}"
     DEPENDS ${types} cycloneddscsharp VERBATIM)
   # These projects share a managed runtime dependency. Serialize managed builds
   # so concurrent MSBuild processes do not write its output at the same time.
