@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Eclipse Cyclone DDS for C#, including native runtimes, the IDL compiler and automatic C# generation.</Description>
+    <PackageId>Org.Eclipse.CycloneDDS</PackageId>
+    <AssemblyName>$(PackageId)</AssemblyName>
+    <RootNamespace>$(PackageId)</RootNamespace>
+    <Title>Eclipse Cyclone DDS for C#</Title>
+    <Authors>Cyclone DDS C# contributors</Authors>
+    <PackageTags>DDS;CycloneDDS;CSharp;publish-subscribe;RTPS</PackageTags>
+    <PackageLicenseExpression>EPL-2.0 OR BSD-3-Clause</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <BuildTasksProject>$(MSBuildThisFileDirectory)../buildtools/Org.Eclipse.CycloneDDS.BuildTasks.csproj</BuildTasksProject>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludeCycloneDDSBuildTasks</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="tests/**/*.cs" />
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(BuildTasksProject)" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    <None Include="../buildtools/build/*" Pack="true" PackagePath="build/" />
+    <None Include="../buildtools/README.md" Pack="true" PackagePath="docs/BUILD.md" />
+    <None Include="../../LICENSE;../../NOTICE.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(NativePackageDirectory)' != ''">
+    <None Include="$(NativePackageDirectory)/runtimes/**/*" Pack="true" PackagePath="runtimes/" />
+    <None Include="$(NativePackageDirectory)/tools/**/*" Pack="true" PackagePath="tools/" />
+  </ItemGroup>
+  <Target Name="IncludeCycloneDDSBuildTasks">
+    <MSBuild Projects="$(BuildTasksProject)" Targets="GetTargetPath" Properties="Configuration=$(Configuration);TargetFramework=net9.0">
+      <Output TaskParameter="TargetOutputs" ItemName="_CycloneDDSBuildTaskAssembly" />
+    </MSBuild>
+    <Error Condition="!Exists('%(_CycloneDDSBuildTaskAssembly.Identity)')" Text="Build the project before packing so the internal MSBuild task assembly exists." />
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="@(_CycloneDDSBuildTaskAssembly)" PackagePath="tools/net9.0/" />
+    </ItemGroup>
+  </Target>
+  <Target Name="RequireNativePackage" BeforeTargets="GenerateNuspec">
+    <ItemGroup Condition="'$(NativePackageDirectory)' != ''">
+      <_CycloneDDSNativeRuntimes Include="$(NativePackageDirectory)/runtimes/**/*" />
+      <_CycloneDDSNativeTools Include="$(NativePackageDirectory)/tools/**/*" />
+    </ItemGroup>
+    <Error Condition="'@(_CycloneDDSNativeRuntimes)' == '' or '@(_CycloneDDSNativeTools)' == ''"
+           Text="Packing requires native runtimes and IDL tools. Use scripts/pack-package.py, or set NativePackageDirectory to a staged directory containing runtimes/ and tools/." />
+  </Target>
+</Project>

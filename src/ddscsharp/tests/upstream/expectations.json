@@ -1,0 +1,90 @@
+{
+  "CdrDataModels.idl": {
+    "status": "reject",
+    "diagnostic": "structure inheritance is not implemented"
+  },
+  "CdrDataModels_pragma.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "EntityProperties.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "EntityProperties_pragma.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "ExtendedTypesModels.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "ExternalModels.idl": {
+    "status": "reject",
+    "diagnostic": "@external is not implemented"
+  },
+  "HelloWorldData.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "KeyHashModels.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "KeylessSpace.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "RecursiveExternalUnionCase.idl": {
+    "status": "reject",
+    "diagnostic": "@external union branches are not implemented"
+  },
+  "RecursiveMutualSequence.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "RecursiveOptionalArraySelf.idl": {
+    "status": "reject",
+    "diagnostic": "recursive arrays cannot be represented by the Cyclone DDS C ABI"
+  },
+  "RecursiveOptionalExternal.idl": {
+    "status": "reject",
+    "diagnostic": "@external is not implemented"
+  },
+  "RecursiveOptionalSelf.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "RecursiveOptionalSequenceSelf.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "RecursiveOptionalTypedefArraySelf.idl": {
+    "status": "reject",
+    "diagnostic": "Array has incomplete element type"
+  },
+  "RecursiveOptionalTypedefSequenceSelf.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "RegressionModels.idl": {
+    "status": "reject",
+    "diagnostic": "@external is not implemented"
+  },
+  "RegressionModels_pragma.idl": {
+    "status": "reject",
+    "diagnostic": "structure inheritance is not implemented"
+  },
+  "Serialization.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "Space.idl": {
+    "status": "generate",
+    "diagnostic": null
+  },
+  "TraitsModels.idl": {
+    "status": "generate",
+    "diagnostic": null
+  }
+}

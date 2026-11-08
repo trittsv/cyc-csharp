@@ -1,0 +1,87 @@
+// Copyright(c) 2026 Cyclone DDS C# contributors
+//
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License v. 2.0 which is available at
+// http://www.eclipse.org/legal/epl-2.0, or the Eclipse Distribution License
+// v. 1.0 which is available at
+// http://www.eclipse.org/org/documents/edl-v10.php.
+//
+// SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
+module Test {
+  const long ARRAY_SIZE = 3;
+  const string GREETING = "Hello, DDS!";
+  enum Color { RED, GREEN, BLUE };
+  @bit_bound(16) bitmask Permissions { READ, WRITE, @position(12) ADMIN };
+  typedef long Identifier;
+  typedef double Matrix[2][3];
+  @nested struct Point { double x; double y; };
+  @final struct Message {
+    @key Identifier id;
+    string text;
+    long value;
+  };
+  @final struct Primitives {
+    @key long id;
+    boolean flag;
+    char letter;
+    octet oct;
+    int8 i8;
+    uint8 u8;
+    short i16;
+    unsigned short u16;
+    long i32;
+    unsigned long u32;
+    long long i64;
+    unsigned long long u64;
+    float f32;
+    double f64;
+    Color color;
+    Permissions permissions;
+  };
+  @final struct Containers {
+    @key long id;
+    string<16> label;
+    sequence<long, 8> numbers;
+    sequence<string> words;
+    Point point;
+    Point points[ARRAY_SIZE];
+    Matrix matrix;
+    sequence<Point> path;
+    sequence<sequence<long> > grid;
+  };
+  @appendable struct Optional {
+    @key long id;
+    @optional long number;
+    @optional string text;
+    @optional Point point;
+  };
+  @mutable struct Mutable {
+    @key @id(0) long id;
+    @id(3) string text;
+    @id(8) sequence<long> numbers;
+  };
+  @final struct Keyless { long value; };
+  @final union Choice switch(long) {
+    case 1: long number;
+    case 2:
+    case 3: string text;
+    case 4: sequence<long> numbers;
+    case 5: Point point;
+    default: double fallback;
+  };
+  @final union ColorChoice switch(Color) {
+    case RED: long red;
+    case GREEN: string green;
+    case BLUE: Point blue;
+  };
+  @final union BoolChoice switch(boolean) {
+    case TRUE: long yes;
+    case FALSE: long no;
+  };
+  struct Recursive;
+  @mutable struct Recursive {
+    @key long id;
+    @optional Recursive child;
+    sequence<Recursive> children;
+  };
+};

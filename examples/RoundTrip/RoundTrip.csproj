@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <DdsGeneratedDirectory Condition="'$(DdsGeneratedDirectory)' == ''">$(MSBuildThisFileDirectory)../../build/examples/RoundTrip/generated/roundtrip_types</DdsGeneratedDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/ddscsharp/Org.Eclipse.CycloneDDS.csproj" />
+    <Compile Include="$(DdsGeneratedDirectory)/RoundTrip.cs" Link="Generated/RoundTrip.cs" />
+    <Compile Include="../Common/ExampleSupport.cs" Link="Common/ExampleSupport.cs" />
+  </ItemGroup>
+</Project>

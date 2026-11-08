@@ -1,0 +1,406 @@
+module regression_models {
+
+@nested struct s_1 {
+string d[2];
+};
+
+@final
+struct s_2 {
+s_1 c[2];
+};
+
+@nested
+union U switch(char) {
+  case 'b':
+    short s;
+};
+
+@nested
+union V switch(char) {
+  case 'b':
+    U u;
+};
+
+@final
+struct s_u {
+  @key V c;
+};
+
+typedef long td_l;
+
+@final struct s_o_td {
+  @optional td_l c;
+};
+
+@final struct s_o {
+  @optional long c;
+};
+
+@topic @mutable struct s_o_2 {
+  @optional long c;
+  @optional long d;
+};
+
+@topic @appendable struct td_1 {
+  long l;
+};
+
+typedef sequence<td_1> td_2;
+
+@topic @final struct td_3 {
+  td_2 c;
+};
+
+typedef double td_d;
+
+union duplicate_types_union switch(long) {
+  case 1:
+    long l_1;
+  case 2:
+    td_l l_2; //should be the same as l_1
+  case 3:
+    double d_1;
+  //to check whether is_same_type sees s_1 and s_2 as different types
+  case 4:
+    s_1 s_s_1;
+  case 5:
+    s_2 s_s_2;
+  //to check whether the default case is deduplicated correctly as well
+  default:
+    td_d d_2;  //should be the same as d_1;
+};
+
+@bit_bound(8) @appendable enum e1 {
+  e_0, e_1, e_2, e_3
+};
+
+typedef e1 e1_arr[3];
+
+struct s_e1 {
+e1_arr c;
+};
+
+union W switch(char) {
+  case 'a':
+    char c[2];
+  case 'b':
+    char d[2][3];
+  case 'x':
+    e1 x[3];
+  case 'y':
+    e1_arr y;
+  case 'z':
+    e1 z;
+};
+
+typedef long long_array_5[5];
+typedef long long_array_7[7];
+typedef long long_array_2[2];
+typedef long_array_2 long_array_6[3];
+
+union duplicate_types_union_2 switch(long) {
+  case 1:
+    long b_1[5];
+  case 2:
+    long_array_5 b_2;  //should be the same type as branch b_1
+  case 3:
+    long_array_7 b_3;  //should be different type than b_2
+  case 4:
+    long b_4[2][3];
+  case 5:
+    long_array_2 b_5[3];  //should be the same type as branch b_4
+  case 6:
+    long_array_6 b_6;  //should be the same type as branch b_5
+  case 7:
+    long b_7;  //should be different from all above types
+};
+
+/*this model is to check whether is_same_type sees "through" sequences correctly*/
+typedef unsigned long ulong_arr[4];
+typedef sequence<ulong_arr> seq_ulong_arr;
+typedef sequence<unsigned long> seq_ulong;
+
+union duplicate_sequences_union switch (unsigned long) {
+  case 0:
+    seq_ulong_arr c_0;
+  case 1:
+    seq_ulong c_1;
+};
+
+/* the following typedefs are used in duplicate_string_types_union */
+typedef string string_typedef;
+typedef string_typedef string_typedef_2;
+
+/* all cases resolve to string */
+union duplicate_string_types_union switch(long) {
+  case 1:
+    string<20> s_1;
+  case 2:
+  case 3:
+    string<40> s_2;
+  case 4:
+    string_typedef s_3;
+  case 5:
+    string_typedef_2 s_4;
+  default:
+    string d_1;
+};
+
+/* the following typedefs are used in duplicate_array_types_union */
+typedef long arr234[2][3][4];
+typedef long arr34[3][4];
+typedef arr34 arr34_2[2];
+typedef long arr4[4];
+typedef arr4 arr4_23[2][3];
+typedef arr4 arr4_3[3];
+typedef arr4_3 arr4_3_2[2];
+
+/* all cases resolve to long[2][3][4] */
+union duplicate_array_types_union switch(long) {
+case 1:
+    long a[2][3][4];
+case 2:
+    arr34 b[2];
+case 3:
+    arr4 c[2][3];
+case 4:
+    arr234 d;
+case 5:
+    arr34_2 e;
+case 6:
+    arr4_23 f;
+case 7:
+    arr4_3_2 g;
+};
+
+/* the following bitmasks are used in duplicate_bitmask_types_union */
+@bit_bound(15) bitmask bma {
+  @position(2) bma_2,
+  bma_3,
+  @position(5) bma_5,
+  bma_6
+};
+
+@bit_bound(15) bitmask bmb {
+  @position(0) bmb_0,
+  bmb_1,
+  @position(7) bmb_7,
+  bmb_8
+};
+
+/* all cases resolve to uint16_t */
+union duplicate_bitmask_types_union switch(@key long) {
+  case 1:
+      bma c;
+  case 2:
+      bmb d;
+  case 3:
+      unsigned short e;
+};
+
+@bit_bound(16) bitmask bm1 {
+b_0, b_1, b_2
+};
+
+struct s_bm1 {
+bm1 c[3];
+};
+
+typedef boolean td_bool;
+typedef sequence<td_bool> td_bool_seq_arr;
+
+struct s_td_bool_seq_arr {
+td_bool_seq_arr c;
+};
+
+struct s_inner {
+  char ch;
+};
+typedef s_inner td_s_inner;
+typedef td_s_inner td_td_s_inner;
+typedef sequence<td_s_inner> seq_td_s_inner;
+
+union u_s_inner switch (char) {
+  case 'a':     seq_td_s_inner c;
+  case 'b':     td_td_s_inner d;
+};
+
+typedef sequence<e1, 3> seq_e1;
+@appendable struct struct_seq_e1 {
+  @optional seq_e1 c;
+};
+
+union u_struct_arr switch (unsigned long) {
+  case 0: s_inner c_1[1];
+};
+@appendable @topic struct s_u_struct_arr {
+  u_struct_arr c;
+};
+
+@final
+struct s_final {
+  @key string s;
+};
+
+@appendable
+struct s_appendable {
+  @key string s;
+};
+
+struct s_memberless {
+};
+
+union union_w_seq_of_structs switch(unsigned long) {
+  case 0: sequence<s_final> seq_of_structs;
+};
+
+struct s_unaligned_access {
+  long l;
+  long long ll;
+};
+
+struct small_union_case {
+  float f32_value;
+};
+
+struct big_union_case {
+  double d_value_1;
+  double d_value_2;
+};
+
+enum different_size_union_discriminator {
+  ds_small,
+  ds_big
+};
+
+union different_size_union switch(different_size_union_discriminator) {
+  case ds_small:
+    small_union_case small_variant;
+  case ds_big:
+    big_union_case big_variant;
+};
+
+@topic @final
+struct different_size_union_topic {
+  different_size_union internal;
+};
+
+struct external_fixed_size_member {
+  @external long value;
+};
+
+enum regression_enum {
+    case_1,
+    case_2,
+    case_3
+};
+
+union union_without_default switch (regression_enum) {
+    case case_1:
+    case case_2:
+        string s;
+};
+
+union union_with_default switch (regression_enum) {
+    case case_1:
+    case case_2:
+        string s;
+    default:
+        long i;
+};
+
+@appendable
+struct appendable_base {
+  long a;
+  long b;
+};
+
+struct appendable_base_seq {
+  appendable_base m[4];
+};
+
+@appendable
+struct appendable_extended {
+  long a;
+  long b;
+  long c;
+};
+
+struct appendable_extended_seq {
+  appendable_extended m[4];
+};
+
+@appendable
+struct appendable_extended_k {
+  long a;
+  long b;
+  @key long c;
+};
+
+struct appendable_extended_k_seq {
+  appendable_extended_k m[4];
+};
+
+@appendable
+struct appendable_extended_optional {
+  long a;
+  long b;
+  @optional long c;
+};
+
+struct appendable_extended_optional_seq {
+  appendable_extended_optional m[4];
+};
+
+@mutable
+struct mutable_base {
+  @id(1) long a;
+  @id(2) long b;
+};
+
+struct mutable_base_seq {
+  mutable_base m[4];
+};
+
+@mutable
+struct mutable_extended {
+  @id(1) long a;
+  @id(2) long b;
+  @id(3) long c;
+};
+
+struct mutable_extended_seq {
+  mutable_extended m[4];
+};
+
+@mutable
+struct mutable_extended_mu {
+  @id(2) long b;
+  @must_understand @id(3) long c;
+};
+
+struct mutable_extended_mu_seq {
+  mutable_extended_mu m[4];
+};
+
+@mutable
+struct mutable_truncated {
+  @id(2) long b;
+};
+
+struct mutable_truncated_seq {
+  mutable_truncated m[4];
+};
+
+@mutable
+struct mutable_extended_optional {
+  @id(1) long a;
+  @id(2) long b;
+  @optional @id(3) long c;
+};
+
+struct mutable_extended_optional_seq {
+  mutable_extended_optional m[4];
+};
+
+};

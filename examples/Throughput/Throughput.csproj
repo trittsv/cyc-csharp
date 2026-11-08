@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <DdsGeneratedDirectory Condition="'$(DdsGeneratedDirectory)' == ''">$(MSBuildThisFileDirectory)../../build/examples/Throughput/generated/throughput_types</DdsGeneratedDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/ddscsharp/Org.Eclipse.CycloneDDS.csproj" />
+    <Compile Include="$(DdsGeneratedDirectory)/Throughput.cs" Link="Generated/Throughput.cs" />
+    <Compile Include="../Common/ExampleSupport.cs" Link="Common/ExampleSupport.cs" />
+  </ItemGroup>
+</Project>

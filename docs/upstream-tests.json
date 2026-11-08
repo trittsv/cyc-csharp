@@ -1,0 +1,2990 @@
+{
+  "repository": "https://github.com/eclipse-cyclonedds/cyclonedds-cxx",
+  "revision": "c185b86b6b689f8ae30234f583979b049c5dfab3",
+  "note": "Inventory only: upstream test names are not claims of C# coverage. Parameterized tests may instantiate multiple cases.",
+  "files": [
+    {
+      "file": "src/ddscxx/tests/Bounded.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Bounds",
+          "name": "strings"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Bounds",
+          "name": "sequence"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Bounds",
+          "name": "boolean"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/CDRStreamer.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_boundary"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_reject_oversized_nested_read_limits"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_basic"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_appendable"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_mutable"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_nested"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_inherited"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_sequence"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_sequence_nested"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_recursive_sequence"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_recursive_union_sequence"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_recursive_external_metadata"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_array"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_array_nested"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_typedef"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_union"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_pragma"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_enum"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_optional"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_must_understand"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "d_header_insertion"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "CDRStreamer",
+          "name": "cdr_bitmask"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Condition.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "create"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "handler"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "status_condition"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "status_condition_entity"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "guard_condition"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "read_condition"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "read_condition_functor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "query_condition"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "conversion_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "conversion"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Condition",
+          "name": "conversion_invalid"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Conversions.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "participant_entity_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "participant_entity_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "participant_entity_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "participant_entity_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "participant_entity_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "publisher_entity_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "publisher_entity_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "publisher_entity_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "publisher_entity_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "publisher_entity_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "subscriber_entity_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "subscriber_entity_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "subscriber_entity_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "subscriber_entity_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "subscriber_entity_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_any_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_any_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_any_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_any_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_any_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_description_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_description_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_description_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_description_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_description_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_entity_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_entity_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_entity_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_entity_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "topic_entity_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_any_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_any_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_any_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_any_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_any_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_entity_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_entity_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_entity_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_entity_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "writer_entity_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_any_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_any_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_any_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_any_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_any_implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_entity_to"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_entity_from"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_entity_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_entity_invalid"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Conversions",
+          "name": "reader_entity_implicit"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/DataModels.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "DataModels",
+          "name": "implicit_defaults"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataModels",
+          "name": "explicit_defaults"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/DataReader.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "create_subscriber_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "create_topic_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "create_cftopic_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "create"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "subscriber"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "topic_description"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "qos_default"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "qos_nondefault_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "qos_immutable_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "qos_nondefault_set"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "qos_immutable_set"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "qos_nondefault_shift"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "qos_immutable_shift"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_instance_count_exceeds_bucket_size"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_no_data"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_shift_LoanedSamples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_SamplesFWIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_SamplesBIIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_default_filter_read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_default_filter_not_read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_default_filter_new_view"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_default_filter_not_new_view"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_default_filter_alive"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_default_filter_not_alive_disposed"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "read_default_filter_not_alive_no_writers"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_no_data"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_SamplesFWIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_SamplesBIIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_default_filter_read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_default_filter_not_read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_default_filter_new_view"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_default_filter_not_new_view"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_default_filter_alive"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_default_filter_not_alive_disposed"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "take_default_filter_not_alive_no_writers"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "readtake1"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "readtake2"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "readcdr"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "lookup_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "key_value_by_sample"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "key_value_by_topic"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "use_after_close"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReader",
+          "name": "use_after_deletion"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/DataReaderManipulatorSelector.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "reader_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_take"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "implicit_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_take"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderManipulatorSelector",
+          "name": "explicit_multiple"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/DataReaderSelector.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "reader_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "implicit"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "implicit_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "implicit_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "implicit_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "implicit_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "implicit_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "implicit_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_LoanedSamples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_LoanedSamples_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_LoanedSamples_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_LoanedSamples_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_LoanedSamples_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_LoanedSamples_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_LoanedSamples_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_FWIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_FWIterator_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_FWIterator_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_FWIterator_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_FWIterator_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_FWIterator_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_FWIterator_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_BIIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_BIIterator_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_BIIterator_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_BIIterator_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_BIIterator_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_BIIterator_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "read_BIIterator_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_LoanedSamples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_LoanedSamples_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_LoanedSamples_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_LoanedSamples_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_LoanedSamples_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_LoanedSamples_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_LoanedSamples_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_FWIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_FWIterator_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_FWIterator_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_FWIterator_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_FWIterator_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_FWIterator_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_FWIterator_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_BIIterator"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_BIIterator_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_BIIterator_next_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_BIIterator_state"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_BIIterator_content"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_BIIterator_max_samples"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataReaderSelector",
+          "name": "take_BIIterator_multiple"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/DataWriter.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "create_publisher_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "create_topic_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "create"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "publisher"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "topic_description"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "qos_default"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "qos_nondefault_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "qos_immutable_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "qos_nondefault_set"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "qos_immutable_set"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "qos_nondefault_shift"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "qos_immutable_shift"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_data"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_InstanceHandle"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_TopicInstance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_iter"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_data_with_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_InstanceHandle_with_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_TopicInstance_with_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_iter_with_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "write_cdr"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "writedispose"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "dispose_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "dispose_instance_2nd"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "dispose_instance_after_read"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "matched_subscriptions_sequence"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "matched_subscriptions_array"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "shift_sample"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "shift_pair_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "shift_pair_InstanceHandle"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "lookup_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "unregister_instance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "unregister_instance_InstanceHandle"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "unregister_instance_with_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "unregister_instance_InstanceHandle_with_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "register_instance_with_timestamp"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "key_value_ti"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "key_value_sample"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "topic"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "use_after_close"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "DataWriter",
+          "name": "use_after_deletion"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/DeferredDestruction.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "DeferredDestruction",
+          "name": "MultiWriterSingleReader"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DeferredDestruction",
+          "name": "MultiReaderSingleWriter"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/DomainParticipant.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "null"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "create_with_conf"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "create_with_str_conffile"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "create_with_str_conf"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "recreate_with_str_conf"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "create_with_str_conf_default"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "create_with_str_conf_invalid"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "create_without_conf"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "create_multiple"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "recreate_after_delete"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "recreate_after_close"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "use_after_close"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "use_after_deletion"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "find_none"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "find_wrong"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "find_deleted"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "find_one"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "find_multiple"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "find_first"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "find_second"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "ignore_none"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "ignore_one"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "non_default_constructor"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "current_time"
+        },
+        {
+          "macro": "TEST",
+          "suite": "DomainParticipant",
+          "name": "default__qos"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Duration.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "plus"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "plus_is"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "minus"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "minus_is"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "times"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "times_is"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "divide"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "nanosec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "microsec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "millisec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "sec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "greater"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "greater_then"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "equals"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "not_equals"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "less_then"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "less"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Duration",
+          "name": "compare"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/EntityStatus.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "EntityStatus",
+          "name": "publication_matched"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "EntityStatus",
+          "name": "subscription_matched"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "EntityStatus",
+          "name": "incompatible_qos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "EntityStatus",
+          "name": "sample_lost"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "EntityStatus",
+          "name": "sample_rejected"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "EntityStatus",
+          "name": "liveliness_changed"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Exception.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "Error"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "InvalidDataError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "PreconditionNotMetError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "UnsupportedError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "NotEnabledError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "InconsistentPolicyError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "ImmutablePolicyError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "AlreadyClosedError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "IllegalOperationError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "OutOfResourcesError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "TimeoutError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "InvalidDowncastError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "NullReferenceError"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Exception",
+          "name": "InvalidArgumentError"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/ExtendedTypes.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "ExtendedTypes",
+          "name": "final"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "ExtendedTypes",
+          "name": "appendable"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "ExtendedTypes",
+          "name": "mutable"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "ExtendedTypes",
+          "name": "sequences_final"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/External.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "External",
+          "name": "constructing"
+        },
+        {
+          "macro": "TEST",
+          "suite": "External",
+          "name": "assigning"
+        },
+        {
+          "macro": "TEST",
+          "suite": "External",
+          "name": "accessing"
+        },
+        {
+          "macro": "TEST",
+          "suite": "External",
+          "name": "locking"
+        },
+        {
+          "macro": "TEST",
+          "suite": "External",
+          "name": "reading_writing"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/FindDataReader.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tname_find_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tname_find_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tname_find_nonexisting"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tname_find"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tname_find_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tdesc_find_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tdesc_find_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tdesc_find"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "BinIterator_tdesc_find_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tname_find_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tname_find_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tname_find_nonexisting"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tname_find"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tname_find_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tdesc_find_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tdesc_find_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tdesc_find"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "FwdIterator_tdesc_find_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataReader",
+          "name": "ignore"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/FindDataWriter.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "BinIterator_find_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "BinIterator_find_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "BinIterator_find_nonexisting"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "BinIterator_find"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "BinIterator_find_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "FwdIterator_find_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "FwdIterator_find_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "FwdIterator_find_nonexisting"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "FwdIterator_find"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "FwdIterator_find_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindDataWriter",
+          "name": "ignore"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/FindTopic.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_with_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_nonexisting"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_first"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_last"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "find_description"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_with_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_with_empty"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_with_other_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_nonexisting"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_first"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_last"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_any"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_description"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_list_with_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_list"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_on_2nd"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_any_on_2nd"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "FindTopic",
+          "name": "discover_description_on_2nd"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/GeneratedEntities.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "EntityTesting",
+          "name": "entity_properties_annotation"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "EntityTesting",
+          "name": "entity_properties_pragma"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Iceoryx.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "IceoryxTestType1",
+          "name": "writer_reader_default_qos_write_cdr"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/KeyHash.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "KeyHash",
+          "name": "basic_types"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "KeyHash",
+          "name": "string_types"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "KeyHash",
+          "name": "nested_types"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "KeyHash",
+          "name": "arrays"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "KeyHash",
+          "name": "nested_types_implicit"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Listener.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "participant_with_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "already_closed_participant"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "participant_without_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "topic_without_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "topic_with_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "already_closed_topic"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "publisher_without_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "publisher_with_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "already_closed_publisher"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "subscriber_without_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "subscriber_with_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "already_closed_subscriber"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "writer_without_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "writer_with_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "already_closed_writer"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "reader_without_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "reader_with_listener"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "already_closed_reader"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "incorrect_listener_mask"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "sample_lost"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "sample_rejected"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "liveliness_changed"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "incompatible_qos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "publication_matched"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "subscription_matched"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "publication_subscription_matched"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "data_available"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "data_available_subscriber"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "data_available_participant"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "propagation"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Listener",
+          "name": "propagation2"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/ListenerStress.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "listener_stress",
+          "name": "DISABLED_data_available_reader"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "listener_stress",
+          "name": "DISABLED_data_available_subscriber"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "listener_stress",
+          "name": "DISABLED_data_available_participant"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Liveliness.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Liveliness",
+          "name": "manual_liveliness"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Publisher.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "create_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "non_default_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "wait_for_acknowledgments"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "participant"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "default__qos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "use_after_close"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Publisher",
+          "name": "use_after_deletion"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Qos.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "DomainParticipant"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "Topic"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "Publisher"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "Subscriber"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "DataWriter"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "DataReader"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "invalid_values"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "invalid_policies"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Qos",
+          "name": "policy_name"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/QosProvider.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "participantQos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "publisherQos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "subscriberQos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "dataWriterQos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "dataReaderQos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "topicQos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "invalid_scope"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "QosProvider",
+          "name": "invalid_access_scope"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Query.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "create_reader_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "create_params_none"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "create_params_vector"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "create_params_iter"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "expression"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "add_parameter"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Query",
+          "name": "parameters"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/RecursiveIdlcxxProbes.cpp",
+      "tests": []
+    },
+    {
+      "file": "src/ddscxx/tests/Regression.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "d_header_insertion"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "member_completeness_unions"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "optional_of_typedef"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "optionals_delimiters_unbalance"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "propagate_xtypes_version_reqs"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "union_duplicate_types"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "union_duplicate_string_types"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "union_duplicate_array_types"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "union_duplicate_bitmask_types"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "delimiters_bitmask"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "emumerators_properties"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "delimiters_emumerators"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "arrays_in_union_case"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "direct_typedef_of_primitive"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "union_array_case"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "direct_typedef_of_struct"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "typedef_of_sequence_of_enums"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "key_value_of_appendables"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "memberless_struct"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "unaligned_access"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "union_selfcontained_and_serialized_size_traits"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "serialized_size_uses_active_union_case"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "write_union_case_larger_than_first_case"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "union_comparisons"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "truncation"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Regression",
+          "name": "sequential_truncation"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/SampleInfo.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Sample_Info",
+          "name": "rank_and_generation_count_autodispose_no_dispose_unregister"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Sample_Info",
+          "name": "rank_and_generation_count_autodispose_dispose_no_unregister"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Sample_Info",
+          "name": "rank_and_generation_count_autodispose_dispose_unregister"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Sample_Info",
+          "name": "rank_and_generation_count_no_autodispose_no_dispose_unregister"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Sample_Info",
+          "name": "rank_and_generation_count_no_autodispose_dispose_no_unregister"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Sample_Info",
+          "name": "rank_and_generation_count_no_autodispose_dispose_unregister"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Serdata.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "alignment"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "deserialization_big_endianness"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "deserialization_little_endianness"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "serialization_big_endianness"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "serialization_sequences"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "serialization_enums"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "serialization_unions"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "keyhash_nokey"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "keyhash_smallkey"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "keyhash_largekey"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "keyhash_stringkey"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "keyhash_bstringkey"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Serdata",
+          "name": "keyhash_long_bstringkey"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Subscriber.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "create_multiple"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "non_default_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "participant"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "default_qos"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "use_after_close"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "use_after_deletion"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Subscriber",
+          "name": "builtin"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Time.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "plus"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "plus_is"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "minus"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "minus_is"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "nanosec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "microsec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "millisec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "sec"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "greater"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "greater_then"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "equals"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "not_equals"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "less_then"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "less"
+        },
+        {
+          "macro": "TEST",
+          "suite": "Time",
+          "name": "compare"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Topic.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "create_null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "create"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "create_same"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "create_same_type"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "name"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "type_name_default"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "type_name_nondefault"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "domain_participant"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "qos_default"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "qos_nondefault_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "qos_immutable_constructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "qos_nondefault_set"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "qos_immutable_set"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "qos_nondefault_shift"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "qos_immutable_shift"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "inconsistent_topic_status"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "close_busy"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "traits"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "use_after_close"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "use_after_deletion"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "Topic",
+          "name": "data_representation"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/TopicTypeDiscovery.cpp",
+      "tests": [
+        {
+          "macro": "TEST",
+          "suite": "TopicTypeDiscovery",
+          "name": "blobs"
+        },
+        {
+          "macro": "TEST",
+          "suite": "TopicTypeDiscovery",
+          "name": "typemap"
+        },
+        {
+          "macro": "TEST",
+          "suite": "TopicTypeDiscovery",
+          "name": "typeinfo"
+        },
+        {
+          "macro": "TEST",
+          "suite": "TopicTypeDiscovery",
+          "name": "typeID"
+        }
+      ]
+    },
+    {
+      "file": "src/ddscxx/tests/Util.cpp",
+      "tests": []
+    },
+    {
+      "file": "src/ddscxx/tests/WaitSet.cpp",
+      "tests": [
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "null"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "create"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "attach_conditions"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "wait_timeout"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "wait_reader_status"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "wait_reader_timeout"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "guard_trigger_during_wait"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "guard_trigger_before_wait"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "multiple_conditions"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "multiple_conditions_handlers"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "dispatch_timeout"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "multiple_conditions_same"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "detach_condition_nonexisting"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "attach_detach_during_wait"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "attach_detach_guard_during_wait"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "destructor"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "attach_detach_multiple_during_wait"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "status_condition_trigger"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "close_during_wait"
+        },
+        {
+          "macro": "TEST_F",
+          "suite": "WaitSet",
+          "name": "detach_after_close"
+        }
+      ]
+    }
+  ]
+}

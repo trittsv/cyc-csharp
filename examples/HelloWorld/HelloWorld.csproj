@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <DdsGeneratedDirectory Condition="'$(DdsGeneratedDirectory)' == ''">$(MSBuildThisFileDirectory)../../build/examples/HelloWorld/generated/helloworld_types</DdsGeneratedDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/ddscsharp/Org.Eclipse.CycloneDDS.csproj" />
+    <Compile Include="$(DdsGeneratedDirectory)/HelloWorld.cs" Link="Generated/HelloWorld.cs" />
+    <Compile Include="../Common/ExampleSupport.cs" Link="Common/ExampleSupport.cs" />
+  </ItemGroup>
+</Project>

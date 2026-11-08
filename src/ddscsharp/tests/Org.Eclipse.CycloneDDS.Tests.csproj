@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Org.Eclipse.CycloneDDS.Tests</RootNamespace>
+    <DdsGeneratedDirectory Condition="'$(DdsGeneratedDirectory)' == ''">$(MSBuildThisFileDirectory)../../../build/generated/test_types</DdsGeneratedDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Org.Eclipse.CycloneDDS.csproj" />
+    <Compile Include="$(DdsGeneratedDirectory)/Types.cs" Link="Generated/Types.cs" />
+  </ItemGroup>
+</Project>
