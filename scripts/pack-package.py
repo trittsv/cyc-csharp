@@ -24,6 +24,18 @@ def checked(command):
     return subprocess.run([str(x) for x in command], check=True, text=True, capture_output=True).stdout
 
 
+def msvc_runtime_files(rid):
+    """Use the selected MSVC toolchain's redistributable shared release CRT."""
+    redist = os.environ.get('VCToolsRedistDir')
+    if not redist:
+        raise RuntimeError('VCToolsRedistDir is missing; stage Windows payloads from the matching MSVC developer environment.')
+    arch = rid.rsplit('-', 1)[1]
+    candidates = sorted((Path(redist) / arch).glob('Microsoft.VC*.CRT/vcruntime140.dll'))
+    if not candidates:
+        raise RuntimeError(f'No shared MSVC redistributable CRT found for {rid} in {redist}')
+    return sorted(candidates[-1].parent.glob('*.dll'))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--prefix', type=Path, required=True)
@@ -45,6 +57,7 @@ def main():
     native = build / 'lib'
     if os.name == 'nt' and (native / 'Release').is_dir():
         native = native / 'Release'
+    crt_files = msvc_runtime_files(rid) if rid.startswith('win-') else []
     if not args.runtime_only:
         stage = stage_root / 'tools' / rid / 'native'
         if stage.exists():
@@ -61,6 +74,8 @@ def main():
         for source in libraries.glob(pattern):
             if 'cycloneddsidl' in source.name or re.match(r'(lib)?ddsc[.-]', source.name):
                 shutil.copy2(source, stage / source.name, follow_symlinks=True)
+        for source in crt_files:
+            shutil.copy2(source, stage / source.name)
         if sys.platform == 'darwin':
             for path in stage.iterdir():
                 load = checked(['otool', '-l', path])
@@ -88,6 +103,8 @@ def main():
             raise RuntimeError(f'Missing runtime files matching {runtime_pattern} in {native}; build the native bridge first.')
         for source in matches:
             shutil.copy2(source, runtime / source.name, follow_symlinks=True)
+    for source in crt_files:
+        shutil.copy2(source, runtime / source.name)
     if rid.startswith('osx-'):
         for path in runtime.iterdir():
             load = checked(['otool', '-l', path])

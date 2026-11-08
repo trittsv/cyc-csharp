@@ -13,6 +13,19 @@ selected SDK's MSBuild assemblies, so building it with SDK 10 would mix
 incompatible framework references. This repository SDK selection does not
 change the library/package version.
 
+All native project libraries are shared. Windows builds consistently use the
+shared MSVC CRT (`/MD` in Release, `/MDd` in Debug), including the pinned Cyclone
+runtime, `idlc`, the backend and the bridge. The compiler exchanges `FILE*` and
+other CRT objects between DLLs, so giving each module its own statically linked
+CRT is incompatible with this plugin ABI. Release CRT DLLs from the selected
+`VCToolsRedistDir` architecture are staged beside both the runtime and host tools.
+
+CI sets `CYCLONEDDS_URI` to explicit IPv4 loopback/unicast discovery with automatic
+participant indices and local discovery peers. Cross-process tests therefore
+exercise real DDS networking without relying on multicast availability on hosted
+runners. The library's normal discovery defaults are unchanged. Failed desktop
+tests retain CTest/example diagnostic logs as an artifact for seven days.
+
 The authoritative platform matrix is [targets.json](../.github/targets.json):
 
 | Platform | Runtime RIDs | Host IDL tools |
@@ -35,7 +48,7 @@ filenames/SONAMEs for Android packaging and 16 KB ELF segment alignment.
 
 1. Read the target matrix and the shared [VERSION](../VERSION).
 2. On all six desktop hosts, build the pinned Cyclone DDS runtime, binding and
-   C# IDL backend. Run CTest (managed/native runtime tests, IDL fixtures and
+   C# IDL backend. Run an early native IDL compiler smoke test and CTest (managed/native runtime tests, IDL fixtures and
    separate-process examples), then stage only native runtime/tool payloads.
 3. For each Android ABI, build Cyclone DDS and the common runtime bridge with
    host IDL tools and managed examples/tests disabled. Android never builds or

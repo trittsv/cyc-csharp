@@ -21,10 +21,13 @@ public static class DdsRuntime
     {
         string filename = OperatingSystem.IsWindows() ? name + ".dll"
             : OperatingSystem.IsMacOS() ? "lib" + name + ".dylib" : "lib" + name + ".so";
+        var search = DllImportSearchPath.SafeDirectories | DllImportSearchPath.AssemblyDirectory;
+        // Resolve ddsc and the shared MSVC CRT beside the selected native DLL,
+        // including when .NET probes a package's runtimes/<rid>/native folder.
+        if (OperatingSystem.IsWindows()) search |= DllImportSearchPath.UseDllDirectoryForDependencies;
         if (LibraryDirectory is { } directory)
-            return NativeLibrary.Load(Path.Combine(directory, filename));
-        return NativeLibrary.Load(filename, typeof(DdsRuntime).Assembly,
-            DllImportSearchPath.SafeDirectories | DllImportSearchPath.AssemblyDirectory);
+            filename = Path.GetFullPath(Path.Combine(directory, filename));
+        return NativeLibrary.Load(filename, typeof(DdsRuntime).Assembly, search);
     }
 }
 

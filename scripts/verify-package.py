@@ -67,6 +67,9 @@ def verify_binary(path, data, rid):
             raise ValueError(f'{path}: expected a Windows PE binary')
         machine = struct.unpack_from('<H', data, pe + 4)[0]
         expected = {'x64': 0x8664, 'arm64': 0xaa64}[arch]
+        # MSVC's ARM64 redistributables may be ARM64X hybrid DLLs.
+        if arch == 'arm64' and machine == 0xa64e:
+            machine = expected
     elif rid.startswith('osx-'):
         if data[:4] != b'\xcf\xfa\xed\xfe':
             raise ValueError(f'{path}: expected a 64-bit Mach-O binary')
@@ -96,7 +99,7 @@ def verify(files, read, runtime_rids, tool_rids, version, package):
                          f'expected runtimes={sorted(runtime_rids)}, tools={sorted(tool_rids)}')
     major = version.split('.')[0]
     for rid in sorted(runtime_rids):
-        required = ('ddsc.dll', 'cycloneddscsharp.dll') if rid.startswith('win-') else (
+        required = ('ddsc.dll', 'cycloneddscsharp.dll', 'vcruntime140.dll') if rid.startswith('win-') else (
             (f'libddsc.{major}.dylib', 'libcycloneddscsharp.dylib') if rid.startswith('osx-') else (
                 ('libddsc.so', 'libcycloneddscsharp.so') if rid.startswith('android-') else (f'libddsc.so.{major}', 'libcycloneddscsharp.so')))
         for name in required:
@@ -106,7 +109,7 @@ def verify(files, read, runtime_rids, tool_rids, version, package):
         for path in sorted(p for p in files if p.startswith(f'runtimes/{rid}/')):
             verify_binary(path, read(path), rid)
     for rid in sorted(tool_rids):
-        required = ('idlc.exe', 'cycloneddsidlcsharp.dll', 'cycloneddsidl.dll', 'ddsc.dll') if rid.startswith('win-') else (
+        required = ('idlc.exe', 'cycloneddsidlcsharp.dll', 'cycloneddsidl.dll', 'ddsc.dll', 'vcruntime140.dll') if rid.startswith('win-') else (
             ('idlc', 'libcycloneddsidlcsharp.dylib', f'libcycloneddsidl.{major}.dylib', f'libddsc.{major}.dylib') if rid.startswith('osx-') else (
                 'idlc', 'libcycloneddsidlcsharp.so', f'libcycloneddsidl.so.{major}', f'libddsc.so.{major}'))
         for name in required:
