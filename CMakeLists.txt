@@ -83,7 +83,7 @@ target_include_directories(c_interop PRIVATE "${test_types_OUTPUT_DIR}")
 target_link_libraries(c_interop PRIVATE CycloneDDS::ddsc)
 add_custom_target(managed_tests ALL
   COMMAND "${DOTNET_EXECUTABLE}" build "${CMAKE_CURRENT_SOURCE_DIR}/src/ddscsharp/tests/Org.Eclipse.CycloneDDS.Tests.csproj"
-    --configuration Release --nologo "-p:DdsGeneratedDirectory=${test_types_OUTPUT_DIR}"
+    --configuration Release --nologo -p:Platform=AnyCPU "-p:DdsGeneratedDirectory=${test_types_OUTPUT_DIR}"
   DEPENDS test_types cycloneddscsharp c_interop VERBATIM)
 add_test(NAME ddscsharp COMMAND ${CMAKE_COMMAND} -E env
   "CYCLONEDDS_CSHARP_NATIVE=$<TARGET_FILE_DIR:cycloneddscsharp>"
