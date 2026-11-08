@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(BuildTasksProject)" ReferenceOutputAssembly="false" PrivateAssets="all" />
-    <None Include="../buildtools/build/*" Pack="true" PackagePath="build/" />
     <None Include="../buildtools/README.md" Pack="true" PackagePath="docs/BUILD.md" />
     <None Include="../../LICENSE;../../NOTICE.md" Pack="true" PackagePath="/" />
   </ItemGroup>
@@ -33,6 +32,10 @@
     <Error Condition="!Exists('%(_CycloneDDSBuildTaskAssembly.Identity)')" Text="Build the project before packing so the internal MSBuild task assembly exists." />
     <ItemGroup>
       <TfmSpecificPackageFile Include="@(_CycloneDDSBuildTaskAssembly)" PackagePath="tools/net9.0/" />
+      <TfmSpecificPackageFile Include="$(MSBuildThisFileDirectory)../buildtools/build/Org.Eclipse.CycloneDDS.props"
+                              PackagePath="build/Org.Eclipse.CycloneDDS.props" />
+      <TfmSpecificPackageFile Include="$(MSBuildThisFileDirectory)../buildtools/build/Org.Eclipse.CycloneDDS.targets"
+                              PackagePath="build/Org.Eclipse.CycloneDDS.targets" />
     </ItemGroup>
   </Target>
   <Target Name="RequireNativePackage" BeforeTargets="GenerateNuspec">
